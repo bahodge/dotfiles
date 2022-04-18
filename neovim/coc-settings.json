@@ -1,0 +1,22 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "graphql",
+    "javascriptreact",
+    "typescript.tsx",
+    "html",
+    "svelte"
+  ],
+  "svelte.enable-ts-plugin": true,
+  "languageserver": {
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh", "bash", "zsh"],
+      "ignoredRootPaths": ["~"]
+    }
+  }
+}
