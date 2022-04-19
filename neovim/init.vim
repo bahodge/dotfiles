@@ -69,7 +69,12 @@ set scrolloff=10
 set exrc
 
 " Enable mouse support
-set mouse=a
+" set mouse=a
+
+" Line numbers
+set nu
+set relativenumber
+set laststatus=2
 
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
@@ -92,17 +97,13 @@ if (has("termguicolors"))
 endif
 
 syntax enable
-set nu
-set relativenumber
 set background=dark
 colorscheme srcery
-set laststatus=2
-
 
 "---------- File Explorer
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
-let g:NERDTreeIgnore = []
+let g:NERDTreeIgnore = ['\.git$', '\.idea$', '\.vscode$', '\.history$']
 let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -142,7 +143,8 @@ let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+let $FZF_DEFAULT_COMMAND = 'ag -Q --hidden --ignore .git -l -g ""'
 
 " ------------ Conqueror of Code
 
