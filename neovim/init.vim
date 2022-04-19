@@ -99,6 +99,7 @@ endif
 syntax enable
 set background=dark
 colorscheme srcery
+hi Normal guibg=NONE ctermbg=NONE
 
 "---------- File Explorer
 let g:NERDTreeShowHidden = 1
