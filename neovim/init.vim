@@ -36,6 +36,9 @@ Plug 'tpope/vim-fugitive'
 " Undo Tree
 Plug 'mbbill/undotree'
 
+" File Watcher
+Plug 'turbio/bracey.vim'
+
 call plug#end()
 
 
