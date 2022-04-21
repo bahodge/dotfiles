@@ -10,13 +10,5 @@
     "html",
     "svelte"
   ],
-  "svelte.enable-ts-plugin": true,
-  "languageserver": {
-    "bash": {
-      "command": "bash-language-server",
-      "args": ["start"],
-      "filetypes": ["sh", "bash", "zsh"],
-      "ignoredRootPaths": ["~"]
-    }
-  }
+  "svelte.enable-ts-plugin": true
 }
