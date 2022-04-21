@@ -1,15 +1,11 @@
 # dotfiles
 
-## Program List
+## Programs to Install
 
-### Shell
+- neovim
+- terminator
+- asdf
 
-- [Oh My ZSH](https://ohmyz.sh/)
+## Scripts
 
-### Programming
-
-- [asdf](https://github.com/asdf-vm/asdf)
-
-### Robotics
-
-- [ros noetic](http://wiki.ros.org/noetic)
+- install_programs.sh
