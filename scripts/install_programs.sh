@@ -1,10 +1,6 @@
 #! /bin/bash
 
 
-if [ "$EUID" -ne 0 ]
-  then echo "🔒 Yikes! Please run this script as root! 🔒"
-  exit
-fi
 
 echo "This script will install the following programs"
 echo "neovim"
@@ -21,10 +17,22 @@ fi;
 
 if [[ $OSTYPE == "darwin"* ]]; then
   echo "The Operating system is darwin"
+
+  echo "---------- Updating Homebrew ---------"
+  brew update
+
+  echo "---------- Installing Neovim ---------"
+  brew install neovim
 fi;
 
 if [[ $OSTYPE == "linux"* ]]; then
   echo "The Operating system is linux"
+
+  
+  if [ "$EUID" -ne 0 ]
+    then echo "🔒 Yikes! Please run this script as root! 🔒"
+    exit
+  fi
 
   echo "----------- Updating apt ----------"
   apt update -y
