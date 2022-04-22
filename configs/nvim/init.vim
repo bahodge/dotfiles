@@ -141,7 +141,9 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 " ------------ Fuzzy Find
-nnoremap <C-p> :FZF<CR>
+nnoremap <C-p> :GFiles<CR>
+nnoremap <C-g> :Files<CR>
+nnoremap <C-o> :Buffers<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
@@ -237,7 +239,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap <F2> <Plug>(coc-rename)
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
