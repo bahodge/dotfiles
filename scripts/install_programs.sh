@@ -14,6 +14,21 @@ then
     exit 0
 fi;
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+CONFIG_ROOT_DIR="$(cd $SCRIPT_DIR && cd .. && pwd)/configs"
+CONFIG_NVIM_ROOT="$HOME/.config/nvim"
+
+echo "----------- Making & Cleaning Config Files ---------"
+
+rm -rf "$CONFIG_NVIM_ROOT"
+mkdir -p "$CONFIG_NVIM_ROOT"
+
+echo "----------- Linking Configs --------------"
+
+ln $CONFIG_ROOT_DIR/nvim/* $CONFIG_NVIM_ROOT
+
+echo "----------- Symlinked Nvim --------------"
+
 
 if [[ $OSTYPE == "darwin"* ]]; then
   echo "The Operating system is darwin"
@@ -23,6 +38,10 @@ if [[ $OSTYPE == "darwin"* ]]; then
 
   echo "---------- Installing Neovim ---------"
   brew install neovim
+
+  echo "---------- Aliasing Vim -> NeoVim ----"
+
+  
 fi;
 
 if [[ $OSTYPE == "linux"* ]]; then
@@ -45,3 +64,11 @@ if [[ $OSTYPE == "linux"* ]]; then
 fi;
 
 
+echo "----------- Installing Plug -------------"
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+echo "------------ Installing Plugins -----------"
+
+vim +PluginInstall +qall
