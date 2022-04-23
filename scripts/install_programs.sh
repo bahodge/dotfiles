@@ -27,6 +27,20 @@ echo "----------- Linking Configs --------------"
 
 ln $CONFIG_ROOT_DIR/nvim/* $CONFIG_NVIM_ROOT
 
+echo "----------- Install asdf ----------------"
+
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0
+echo ". $HOME/.asdf/asdf.sh" >> $HOME/.zshrc
+
+echo "---------- Install nodejs ---------------"
+
+source $HOME/.zshrc
+
+asdf plugin-add nodejs
+asdf install nodejs lts
+asdf global nodejs lts
+asdf reshim
+
 echo "----------- Symlinked Nvim --------------"
 
 if [[ $OSTYPE == "darwin"* ]]; then
@@ -52,7 +66,7 @@ fi;
 if [[ $OSTYPE == "linux"* ]]; then
   echo "The Operating system is linux"
 
-  
+
   if [ "$EUID" -ne 0 ]
     then echo "🔒 Yikes! Please run this script as root! 🔒"
     exit
@@ -67,7 +81,6 @@ if [[ $OSTYPE == "linux"* ]]; then
   echo "----------- Cleaning up ----------"
   apt autoremove -y
 fi;
-
 
 echo "----------- Installing Plug -------------"
 
