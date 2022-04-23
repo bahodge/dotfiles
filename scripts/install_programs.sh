@@ -1,13 +1,9 @@
 #! /bin/bash
 
-
-if [ "$EUID" -ne 0 ]
-  then echo "🔒 Yikes! Please run this script as root! 🔒"
-  exit
-fi
-
 echo "This script will install the following programs"
+echo "curl"
 echo "neovim"
+echo "python"
 
 echo "Continue [y/n]:";
 read PROCEED
@@ -18,13 +14,49 @@ then
     exit 0
 fi;
 
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+CONFIG_ROOT_DIR="$(cd $SCRIPT_DIR && cd .. && pwd)/configs"
+CONFIG_NVIM_ROOT="$HOME/.config/nvim"
+
+echo "----------- Making & Cleaning Config Files ---------"
+
+rm -rf "$CONFIG_NVIM_ROOT"
+mkdir -p "$CONFIG_NVIM_ROOT"
+
+echo "----------- Linking Configs --------------"
+
+ln $CONFIG_ROOT_DIR/nvim/* $CONFIG_NVIM_ROOT
+
+echo "----------- Symlinked Nvim --------------"
 
 if [[ $OSTYPE == "darwin"* ]]; then
   echo "The Operating system is darwin"
+
+  echo "---------- Installing Curl -----------"
+
+  brew install curl
+
+  echo "---------- Updating Homebrew ---------"
+  brew update
+
+  echo "---------- Installing Neovim ---------"
+  brew install neovim
+
+  echo "---------- Aliasing Vim -> NeoVim ----"
+
+  echo "---------- Install Python ------------"
+
+  brew install python
 fi;
 
 if [[ $OSTYPE == "linux"* ]]; then
   echo "The Operating system is linux"
+
+  
+  if [ "$EUID" -ne 0 ]
+    then echo "🔒 Yikes! Please run this script as root! 🔒"
+    exit
+  fi
 
   echo "----------- Updating apt ----------"
   apt update -y
@@ -37,3 +69,11 @@ if [[ $OSTYPE == "linux"* ]]; then
 fi;
 
 
+echo "----------- Installing Plug -------------"
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+echo "------------ Installing Plugins -----------"
+
+vim +PluginInstall +qall
