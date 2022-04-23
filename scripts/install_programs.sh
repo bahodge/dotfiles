@@ -1,9 +1,9 @@
 #! /bin/bash
 
-
-
 echo "This script will install the following programs"
+echo "curl"
 echo "neovim"
+echo "python"
 
 echo "Continue [y/n]:";
 read PROCEED
@@ -29,9 +29,12 @@ ln $CONFIG_ROOT_DIR/nvim/* $CONFIG_NVIM_ROOT
 
 echo "----------- Symlinked Nvim --------------"
 
-
 if [[ $OSTYPE == "darwin"* ]]; then
   echo "The Operating system is darwin"
+
+  echo "---------- Installing Curl -----------"
+
+  brew install curl
 
   echo "---------- Updating Homebrew ---------"
   brew update
@@ -41,7 +44,9 @@ if [[ $OSTYPE == "darwin"* ]]; then
 
   echo "---------- Aliasing Vim -> NeoVim ----"
 
-  
+  echo "---------- Install Python ------------"
+
+  brew install python
 fi;
 
 if [[ $OSTYPE == "linux"* ]]; then
