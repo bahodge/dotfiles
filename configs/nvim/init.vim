@@ -20,6 +20,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-svelte']
@@ -42,9 +43,12 @@ let mapleader=","
 let g:svelte_indent_script = 2
 let g:svelte_indent_style = 2
 
+" Go language settings
+
 " Tab & Indent sizes
 set expandtab
 set shiftwidth=2
+set tabstop=4
 
 " Persistent undo
 set undofile
