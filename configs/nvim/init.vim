@@ -181,7 +181,7 @@ nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
 " ############# End Custom
 
 " Point directly to a version of node to be used
-let g:coc_node_path = '$HOME/.asdf/installs/nodejs/lts/bin/node'
+let g:coc_node_path = trim(system('which node'))
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
