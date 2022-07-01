@@ -2,11 +2,7 @@
 call plug#begin("~/.vim/plugged")
 
 " Theme
-Plug 'dracula/vim'
 Plug 'NLKNguyen/papercolor-theme'
-Plug '4513ECHO/vim-colors-hatsunemiku'
-Plug 'srcery-colors/srcery-vim'
-Plug 'vim-airline/vim-airline'
 
 " File Explorer
 Plug 'scrooloose/nerdtree'
@@ -23,7 +19,7 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-svelte']
+let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-svelte']
 
 " Fugitive (Git support)
 Plug 'tpope/vim-fugitive'
@@ -68,7 +64,10 @@ set scrolloff=10
 set exrc
 
 " Enable mouse support
-" set mouse=a
+set mouse=a
+
+" Search
+nnoremap <esc> :noh<CR>
 
 " Line numbers
 set nu
@@ -99,7 +98,7 @@ endif
 
 syntax enable
 set background=dark
-colorscheme dracula
+colorscheme PaperColor
 hi Normal guibg=NONE ctermbg=NONE
 
 "---------- File Explorer
