@@ -1,3 +1,5 @@
+set nocompatible
+
 """"""""""""""""""""""""""""" Plugin Secion
 call plug#begin("~/.vim/plugged")
 
@@ -14,9 +16,7 @@ Plug 'junegunn/fzf.vim'
 
 " Code Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'sheerun/vim-polyglot'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-svelte']
@@ -78,6 +78,10 @@ set laststatus=2
 
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
+" Clipboard
+
+set clipboard=unnamedplus
+
 " ---------- AUTOGROUPS
 
 fun! TrimWhitespace()
@@ -102,6 +106,7 @@ colorscheme PaperColor
 hi Normal guibg=NONE ctermbg=NONE
 
 "---------- File Explorer
+autocmd BufEnter * lcd %:p:h
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['\.git$', '\.idea$', '\.vscode$', '\.history$']
