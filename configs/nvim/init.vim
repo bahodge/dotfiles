@@ -4,7 +4,8 @@ set nocompatible
 call plug#begin("~/.vim/plugged")
 
 " Theme
-Plug 'NLKNguyen/papercolor-theme'
+" Plug 'NLKNguyen/papercolor-theme'
+Plug 'sjl/badwolf'
 
 " File Explorer
 Plug 'scrooloose/nerdtree'
@@ -102,7 +103,7 @@ endif
 
 syntax enable
 set background=dark
-colorscheme PaperColor
+colorscheme badwolf
 hi Normal guibg=NONE ctermbg=NONE
 
 "---------- File Explorer
