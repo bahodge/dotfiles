@@ -65,7 +65,7 @@ set scrolloff=10
 set exrc
 
 " Enable mouse support
-set mouse=a
+" set mouse=a
 
 " Search
 nnoremap <esc> :noh<CR>
@@ -82,6 +82,11 @@ vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 " Clipboard
 
 set clipboard=unnamedplus
+
+" Vim Tab navigation
+
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
 
 " ---------- AUTOGROUPS
 
