@@ -77,7 +77,7 @@ set scrolloff=10
 set exrc
 
 " Enable mouse support
-set mouse=a
+" set mouse=a
 
 " Search
 nnoremap <esc> :noh<CR>
