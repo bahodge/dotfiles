@@ -18,8 +18,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Code
-Plug 'frazrepo/vim-rainbow'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -46,8 +44,6 @@ set background=dark
 colorscheme gruvbox
 set cursorline
 hi CursorLine term=bold cterm=bold
-
-let g:rainbow_active=1
 
 " --------- General Settings
 
@@ -86,6 +82,7 @@ set exrc
 set mouse=a
 
 " Search
+" Remove highlights
 nnoremap <esc> :noh<CR>
 
 " Line numbers
@@ -106,9 +103,8 @@ set encoding=utf-8
 " TextEdit might fail if hidden is not set.
 set hidden
 
-
 " Give more space for displaying messages.
-set cmdheight=2
+" set cmdheight=2
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -124,16 +120,16 @@ endif
 
 " ---------- AUTOGROUPS
 
-" fun! TrimWhitespace()
-"   let l:save = winsaveview()
-"   keeppatterns %s/\s\+$//e
-"   call winrestview(l:save)
-" endfun
-"
-" augroup ButterCoding
-"   autocmd!
-"   autocmd BufWritePre * :call TrimWhitespace()
-" augroup END
+fun! TrimWhitespace()
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
+endfun
+
+augroup ButterCoding
+  autocmd!
+  autocmd BufWritePre * :call TrimWhitespace()
+augroup END
 
 
 "---------- File Explorer
@@ -160,10 +156,7 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 " ------------ Fuzzy Find
-" Find all files including .gitignored files
-" nnoremap <silent> <C-g> :Files<CR>
 
-" Find all files not in .gitignored
 nnoremap <silent> <C-p> :GFiles<CR>
 nnoremap <silent><leader>b :Buffers<CR>
 nnoremap <silent><leader>p :Files<CR>
@@ -286,14 +279,14 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
- vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+"   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -331,3 +324,4 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
