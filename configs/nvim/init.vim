@@ -134,7 +134,7 @@ augroup END
 
 "---------- File Explorer
 autocmd BufEnter * lcd %:p:h
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = "left"
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['\.git$', '\.idea$', '\.vscode$', '\.history$']
