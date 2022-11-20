@@ -5,26 +5,32 @@ call plug#begin("~/.vim/plugged")
 
 " Theme
 Plug 'morhetz/gruvbox'
+Plug 'nanotech/jellybeans.vim'
 
 " Statusline
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 
 " File Explorer
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 
 " Fuzzing Finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 " Code
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'https://github.com/tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Fugitive (Git support)
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " Undo Tree
 Plug 'mbbill/undotree'
@@ -41,13 +47,19 @@ endif
 
 syntax enable
 set background=dark
-colorscheme gruvbox
+colorscheme jellybeans
 set cursorline
 hi CursorLine term=bold cterm=bold
 
+" Add title to term
+autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
+set title
+
 " --------- General Settings
 
-let mapleader=","
+let mapleader=" "
+nnoremap <SPACE> <Nop>
+
 " Source this file and then install any missing deps
 nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
 
@@ -81,8 +93,7 @@ set exrc
 " Enable mouse support
 set mouse=a
 
-" Search
-" Remove highlights
+" Remove highlights for search
 nnoremap <esc> :noh<CR>
 
 " Line numbers
@@ -102,9 +113,6 @@ set encoding=utf-8
 
 " TextEdit might fail if hidden is not set.
 set hidden
-
-" Give more space for displaying messages.
-" set cmdheight=2
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -131,18 +139,12 @@ augroup ButterCoding
   autocmd BufWritePre * :call TrimWhitespace()
 augroup END
 
-
-"---------- File Explorer
-autocmd BufEnter * lcd %:p:h
-let g:NERDTreeWinPos = "left"
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeIgnore = ['\.git$', '\.idea$', '\.vscode$', '\.history$']
-let g:NERDTreeStatusline = ''
-" Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+" --------- Telescope
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " ----------- Buffer navigation
 " use alt+hjkl to move between split/vsplit panels
@@ -155,25 +157,19 @@ nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
-" ------------ Fuzzy Find
+" ----------- Nerdtree
+autocmd BufEnter * lcd %:p:h
+let g:NERDTreeWinPos = "left"
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = ['\.git$', '\.idea$', '\.vscode$', '\.history$']
+let g:NERDTreeStatusline = ''
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Toggle
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
-nnoremap <silent> <C-p> :GFiles<CR>
-nnoremap <silent><leader>b :Buffers<CR>
-nnoremap <silent><leader>p :Files<CR>
-set grepformat=%f:%l:%c:%m,%f:%l:%m
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-noremap <C-g> :Rg<Cr>
-noremap <leader>g :silent lgrep<Space>
-
-let g:rg_command = 'rg --vimgrep -S'
-let g:fzf_layout = { 'down': '40%' }
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit'
-  \}
-
-" ------------ Code
+" --------------- Conqueror of Code
 
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -279,14 +275,14 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-" if has('nvim-0.4.0') || has('patch-8.2.0750')
-"   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-"   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-"   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-"   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-"   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-"  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-" endif
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+ vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
