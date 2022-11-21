@@ -49,11 +49,14 @@ endif
 
 syntax enable
 set background=dark
-colorscheme oceanicnext
 set cursorline
-hi CursorLine term=bold cterm=bold
-highlight Normal ctermbg=none guibg=none
-highlight NonText ctermbg=none guibg=none
+colorscheme oceanicnext
+" statusline
+set laststatus=2
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'oceanicnext',
+      \ }
 
 " for transparent background
 function! AdaptColorscheme()
@@ -73,6 +76,8 @@ highlight CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE
 highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
 highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=NONE
 highlight EndOfBuffer guibg=NONE ctermbg=NONE
+highlight Normal ctermbg=none guibg=none
+highlight NonText ctermbg=none guibg=none
 highlight clear LineNr
 highlight clear SignColumn
 highlight clear StatusLine
@@ -88,12 +93,6 @@ autocmd InsertLeave * set nocursorline
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
 
-" statusline
-set laststatus=2
-set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'oceanicnext',
-      \ }
 " --------- General Settings
 let mapleader=" "
 nnoremap <SPACE> <Nop>
@@ -345,7 +344,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " " Mappings for CoCList
 " " Show all diagnostics.
