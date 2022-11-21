@@ -6,9 +6,9 @@ call plug#begin("~/.vim/plugged")
 " Theme
 Plug 'morhetz/gruvbox'
 Plug 'nanotech/jellybeans.vim'
+Plug 'adrian5/oceanic-next-vim'
 
-" Statusline
-" Plug 'itchyny/lightline.vim'
+" Statusline Plug 'itchyny/lightline.vim'
 
 " File Explorer
 Plug 'scrooloose/nerdtree'
@@ -23,6 +23,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
 " Code
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -30,7 +31,7 @@ Plug 'https://github.com/tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Fugitive (Git support)
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Undo Tree
 Plug 'mbbill/undotree'
@@ -47,16 +48,46 @@ endif
 
 syntax enable
 set background=dark
-colorscheme jellybeans
+colorscheme oceanicnext
 set cursorline
 hi CursorLine term=bold cterm=bold
+highlight Normal ctermbg=none guibg=none
+highlight NonText ctermbg=none guibg=none
 
+" for transparent background
+function! AdaptColorscheme()
+  highlight clear CursorLine
+  highlight Normal guibg=none ctermbg=none
+  highlight LineNr ctermbg=none
+  highlight Folded ctermbg=none
+  highlight NonText ctermbg=none
+  highlight SpecialKey ctermbg=none
+  highlight VertSplit ctermbg=none
+  highlight SignColumn ctermbg=none
+endfunction
+autocmd ColorScheme * call AdaptColorscheme()
+
+highlight Normal guibg=NONE ctermbg=NONE
+highlight CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=NONE
+highlight EndOfBuffer guibg=NONE ctermbg=NONE
+highlight clear LineNr
+highlight clear SignColumn
+highlight clear StatusLine
+
+" Change Color when entering Insert Mode
+autocmd InsertEnter * set nocursorline
+
+" Revert Color to default when leaving Insert Mode
+autocmd InsertLeave * set nocursorline
+
+" trasparent end
 " Add title to term
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
 
 " --------- General Settings
-
 let mapleader=" "
 nnoremap <SPACE> <Nop>
 
@@ -64,7 +95,6 @@ nnoremap <SPACE> <Nop>
 nnoremap <silent><leader>1 :source ~/.config/nvim/init.vim \| :PlugInstall<CR>
 
 " Set svelte language server overrides
-
 let g:svelte_indent_script = 2
 let g:svelte_indent_style = 2
 
@@ -77,12 +107,13 @@ set tabstop=4
 set undofile
 set undodir=$HOME/.vim/undo
 nnoremap <F5> :UndotreeToggle<CR>
-
 set undolevels=1000
 set undoreload=10000
 
-" Incrementally Search for Text
+" Search
 set incsearch
+set ignorecase
+set smartcase
 
 " Scroll the page when cursor is n number of lines from edge
 set scrolloff=10
@@ -109,7 +140,7 @@ set clipboard=unnamedplus
 
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
-set encoding=utf-8
+set encoding=UTF-8
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -158,16 +189,23 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 " ----------- Nerdtree
-autocmd BufEnter * lcd %:p:h
 let g:NERDTreeWinPos = "left"
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = ['\.git$', '\.idea$', '\.vscode$', '\.history$']
 let g:NERDTreeStatusline = ''
+set autochdir
+let NERDTreeChDirMode=2
+nnoremap <leader>n :NERDTree .<CR>
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+
+" --------------- Treesitter
+" This is special because it requires it to be configured by lua
+" This must also be on a single line
+lua require'nvim-treesitter.configs'.setup{highlight={enable=true}}
 
 " --------------- Conqueror of Code
 
@@ -260,34 +298,34 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
+" " Run the Code Lens action on the current line.
+" nmap <leader>cl  <Plug>(coc-codelens-action)
 
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" " Map function and class text objects
+" " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
- vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+"   nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"   nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"   inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"   inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
@@ -303,21 +341,21 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" " Mappings for CoCList
+" " Show all diagnostics.
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
