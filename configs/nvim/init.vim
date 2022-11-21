@@ -8,7 +8,8 @@ Plug 'morhetz/gruvbox'
 Plug 'nanotech/jellybeans.vim'
 Plug 'adrian5/oceanic-next-vim'
 
-" Statusline Plug 'itchyny/lightline.vim'
+" Statusline
+Plug 'itchyny/lightline.vim'
 
 " File Explorer
 Plug 'scrooloose/nerdtree'
@@ -87,6 +88,12 @@ autocmd InsertLeave * set nocursorline
 autocmd BufEnter * let &titlestring = ' ' . expand("%:t")
 set title
 
+" statusline
+set laststatus=2
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'oceanicnext',
+      \ }
 " --------- General Settings
 let mapleader=" "
 nnoremap <SPACE> <Nop>
@@ -130,7 +137,6 @@ nnoremap <esc> :noh<CR>
 " Line numbers
 set nu
 set relativenumber
-set laststatus=2
 
 " Search and replace
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
