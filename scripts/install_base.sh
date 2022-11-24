@@ -21,15 +21,13 @@ fi;
 
 echo "------- Prep ----------"
 
-# Terminator
-add-apt-repository ppa:gnome-terminator -y
-
-# Neovim
-add-apt-repository ppa:neovim-ppa/stable -y
+# Repositories
+add-apt-repository ppa:gnome-terminator ppa:neovim-ppa/stable -y
 
 # Update
 apt update -y
 apt autoremove -y
+
 echo "-------- Installing ---------"
 
 apt install -y curl wget fzf ripgrep terminator neovim zsh software-properties-common
