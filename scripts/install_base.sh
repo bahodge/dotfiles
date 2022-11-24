@@ -10,14 +10,14 @@ echo "terminal: gnome-terminator"
 echo "editor: neovim"
 echo "a whole bunch of aliases"
 
-echo "Continue [y/n]:";
-read PROCEED
+# echo "Continue [y/n]:";
+# read PROCEED
 
-if [ "$PROCEED" != "y" ] && [ "$PROCEED" != "Y" ];
-then
-    echo "Exiting"
-    exit 0
-fi;
+# if [ "$PROCEED" != "y" ] && [ "$PROCEED" != "Y" ];
+# then
+#     echo "Exiting"
+#     exit 0
+# fi;
 
 echo "------- Prep ----------"
 

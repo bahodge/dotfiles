@@ -13,18 +13,9 @@ fi;
 
 echo "This script will install the following programs"
 echo "asdf ${ASDF_VERSION}"
-echo "nodejs lts"
-echo "yarn"
+echo "nodejs ${NODEJS_VERSION}"
 echo "golang ${GOLANG_VERSION}"
 
-echo "Continue [y/n]:";
-read PROCEED
-
-if [ "$PROCEED" != "y" ] && [ "$PROCEED" != "Y" ];
-then
-    echo "Exiting"
-    exit 0
-fi;
 
 echo "----------- Install asdf ----------------"
 
@@ -43,7 +34,6 @@ asdf plugin-add nodejs
 asdf install nodejs ${NODEJS_VERSION}
 asdf global nodejs ${NODEJS_VERSION}
 asdf reshim
-npm install -g yarn
 
 echo "---------- Install GO ---------------"
 
@@ -52,6 +42,11 @@ asdf install golang ${GOLANG_VERSION}
 asdf global golang ${GOLANG_VERSION}
 
 source ${HOME}/${RC_FILE}
+
+echo "--------- Installing Deps ----------"
+
+go install golang.org/x/tools/gopls@latest
+npm install -g yarn typescript-language-server
 
 echo "Installed asdf $(asdf --version)"
 echo "Installed nodejs $(node --version)"
