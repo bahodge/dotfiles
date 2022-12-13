@@ -70,6 +70,7 @@ cat >>${HOME}/${RC_FILE} <<EOL
 # Aliases
 alias vi="nvim"
 alias k="kubectl"
+alias lg="lazygit"
 
 # Editor
 export EDITOR=/usr/bin/nvim
