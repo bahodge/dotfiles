@@ -13,15 +13,6 @@ sudo ${SCRIPT_DIR}/install_base.zsh
 # Install asdf and languages
 zsh ${SCRIPT_DIR}/install_env.zsh
 
-# Install Plug
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-
-echo "----------- Installing Plugins ----------"
-nvim --headless +PlugInstall +qall
-
-echo "Post install instructions"
-echo "open nvim and run the following commands"
-echo "CocInstall coc-go"
-echo "TSInstall javascript"
-echo "TSInstall go"
+# Install packer
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim

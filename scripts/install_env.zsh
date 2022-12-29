@@ -8,6 +8,9 @@ KUBECTL_VERSION="1.23.10"
 HELM_VERSION="3.7.2"
 SKAFFOLD_VERSION="1.39.4"
 RC_FILE=".zshrc"
+NEOVIM_VERSION="0.8.2"
+RIPGREP_VERSION="13.0.0"
+FZF_VERSION="0.35.1"
 
 echo "-------- Setting up rc file ------------"
 
@@ -25,6 +28,25 @@ echo "---------- Updating asdf ----------------"
 
 asdf update
 
+echo "------------------- Installing Neovim -------------------"
+
+asdf plugin-add neovim
+asdf install neovim ${NEOVIM_VERSION}
+asdf global neovim ${NEOVIM_VERSION}
+
+echo "------------------- Installing Ripgrep -------------------"
+
+asdf plugin-add ripgrep
+asdf install ripgrep ${RIPGREP_VERSION}
+asdf global ripgrep ${RIPGREP_VERSION}
+
+echo "------------------- Installing FZF -------------------"
+
+asdf plugin-add fzf
+asdf install fzf ${FZF_VERSION}
+asdf global fzf ${FZF_VERSION}
+
+
 echo "---------- Installing nodejs ---------------"
 
 asdf plugin-add nodejs
@@ -39,16 +61,19 @@ asdf install golang ${GOLANG_VERSION}
 asdf global golang ${GOLANG_VERSION}
 
 echo "------------------- Installing Kubectl -------------------"
+
 asdf plugin-add kubectl
 asdf install kubectl ${KUBECTL_VERSION}
 asdf global kubectl ${KUBECTL_VERSION}
 
 echo "------------------- Installing Helm -------------------"
+
 asdf plugin-add helm
 asdf install helm ${HELM_VERSION}
 asdf global helm ${HELM_VERSION}
 
 echo "------------------- Installing Skaffold -------------------"
+
 asdf plugin-add skaffold
 asdf install skaffold ${SKAFFOLD_VERSION}
 asdf global skaffold ${SKAFFOLD_VERSION}
@@ -85,8 +110,12 @@ echo -e 'export PATH="${PATH}"' >> ${HOME}/${RC_FILE}
 source ${HOME}/${RC_FILE}
 
 echo "Installed asdf $(asdf --version)"
+echo "Installed neovim $(neovim --version)"
+echo "Installed ripgrep $(rg --version)"
+echo "Installed fzf $(fzf --version)"
 echo "Installed nodejs $(node --version)"
 echo "Installed yarn $(yarn --version)"
+echo "Installed go $(go version)"
 echo "Installed kubectl $(kubectl version --client --short)"
 echo "Installed helm $(helm version)"
 echo "Installed skaffold $(skaffold version)"

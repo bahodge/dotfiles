@@ -20,12 +20,11 @@ apt autoremove -y
 echo "--------- Adding repositories ----------"
 
 add-apt-repository -y ppa:gnome-terminator
-add-apt-repository -y ppa:neovim-ppa/stable
 add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 echo "-------- Installing ---------"
 
-apt install -y wget fzf ripgrep terminator neovim zsh docker-ce docker-ce-cli containerd.io
+apt install -y wget grep terminator zsh docker-ce docker-ce-cli containerd.io
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Lazygit
