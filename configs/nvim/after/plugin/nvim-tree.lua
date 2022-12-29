@@ -12,6 +12,7 @@ require("nvim-tree").setup({
     mappings = {
       list = {
         { key = "u", action = "dir_up" },
+        { key = "cd", action = "cd" },
       },
     },
   },
@@ -19,7 +20,7 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+   -- dotfiles = true,
   },
 })
 
