@@ -102,15 +102,19 @@ export EDITOR=/usr/bin/nvim
 EOL
 
 # I'm doing this out of band of EOL to control the readability of the path var
-echo '\n# Path' >> ${HOME}/${RC_FILE}
+echo '# Path' >> ${HOME}/${RC_FILE}
 echo -e 'export GOPATH="$(go env GOPATH)"' >> ${HOME}/${RC_FILE}
 echo -e 'export PATH="${PATH}:${GOPATH}/bin"' >> ${HOME}/${RC_FILE}
 echo -e 'export PATH="${PATH}"' >> ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
 
+# Install any dependencies for nvim
+echo "---------- PackerSync -----------"
+nvim -c PackerSync -c 'sleep 10' -c qa --headless
+
 echo "Installed asdf $(asdf --version)"
-echo "Installed neovim $(neovim --version)"
+echo "Installed neovim $(nvim --version)"
 echo "Installed ripgrep $(rg --version)"
 echo "Installed fzf $(fzf --version)"
 echo "Installed nodejs $(node --version)"
