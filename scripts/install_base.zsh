@@ -7,7 +7,7 @@ ROS_VERSION="noetic"
 
 echo "------- Installing Common Deps ----------"
 # Update
-apt install -y curl apt-transport-https ca-certificates gnupg-agent software-properties-common
+apt install -y curl apt-transport-https ca-certificates gnupg-agent software-properties-common xclip
 
 # Get docker key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add
