@@ -7,5 +7,14 @@
 This will execute a series of child scripts and get your machine setup
 
 ```sh
-./scripts/install.zsh
+# 1
+./scripts/clean.sh
+
+# 2
+sudo ./scripts/install_base.sh
+
+# 3
+./scripts/install_env.sh
+
+# logout & login
 ```
