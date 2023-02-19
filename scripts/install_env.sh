@@ -6,6 +6,7 @@ NODEJS_VERSION="18.12.0"
 KUBECTL_VERSION="1.23.10"
 HELM_VERSION="3.7.2"
 SKAFFOLD_VERSION="1.39.4"
+MINIKUBE_VERSION=""
 RC_FILE=".zshrc"
 NEOVIM_VERSION="0.8.2"
 RIPGREP_VERSION="13.0.0"
@@ -96,6 +97,12 @@ echo "------------------- Installing Skaffold -------------------"
 asdf plugin-add skaffold
 asdf install skaffold ${SKAFFOLD_VERSION}
 asdf global skaffold ${SKAFFOLD_VERSION}
+
+echo "------------------- Installing Minikube -------------------"
+
+asdf plugin-add minikube
+asdf install minikube ${MINIKUBE_VERSION}
+asdf global minikube ${MINIKUBE_VERSION}
 
 source ${HOME}/${RC_FILE}
 
