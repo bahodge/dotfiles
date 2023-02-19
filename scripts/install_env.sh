@@ -1,5 +1,4 @@
 #! /bin/zsh
-
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 ASDF_VERSION="0.10.2"
 GOLANG_VERSION="1.19"
@@ -14,8 +13,28 @@ FZF_VERSION="0.35.1"
 
 echo "-------- Setting up rc file ------------"
 
-cp ${SCRIPT_DIR}/${RC_FILE} ${HOME}/${RC_FILE}
+# Setup base config files
+rm -rf ${HOME}/.config/nvim
+rm -rf ${HOME}/${RC_FILE}
+mkdir -p ${HOME}/.config/nvim
+cp -r ${SCRIPT_DIR}/configs/nvim/* ${HOME}/.config/nvim/
+cp ${SCRIPT_DIR}/configs/${RC_FILE} ${HOME}/${RC_FILE}
+
 source ${HOME}/${RC_FILE}
+
+echo "-------- Setting Up Oh My zsh ---------"
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Lazygit
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name":' |  sed -E 's/.*"v*([^"]+)".*/\1/')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz -C /usr/local/bin lazygit
+rm lazygit.tar.gz
+
+# packer
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 echo "----------- Installing asdf ----------------"
 
