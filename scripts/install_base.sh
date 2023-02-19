@@ -25,13 +25,14 @@ echo "-------- Installing ---------"
 
 apt install -y wget grep tilix zsh docker-ce docker-ce-cli containerd.io
 
-echo "------------- Adding user to docker group ---------------"
-
-usermod -aG docker $USER
 
 echo "------------- Installing Docker Compose ---------------"
 
 curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
-echo "close this terminal and open a new one"
+echo "------------- Add your current user to the docker group manually --------------"
+
+echo "usermod -aG docker $USER"
+
+echo "once complete, close this terminal and open a new one"
