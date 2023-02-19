@@ -5,6 +5,11 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
+local function open_nvim_tree()
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
@@ -17,13 +22,18 @@ require("nvim-tree").setup({
     },
   },
   renderer = {
-    group_empty = true,
+    group_empty = false,
   },
   filters = {
    -- dotfiles = true,
+  },
+  update_focused_file = {
+    enable = true,
+    update_root = true,
   },
 })
 
 -- Remapped keys
 vim.keymap.set("", "<C-b>", ":NvimTreeToggle<CR>")
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
