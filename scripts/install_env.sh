@@ -11,6 +11,7 @@ RC_FILE=".zshrc"
 NEOVIM_VERSION="0.8.2"
 RIPGREP_VERSION="13.0.0"
 FZF_VERSION="0.35.1"
+LAZYGIT_VERSION="latest"
 
 echo "-------- Setting up rc file ------------"
 
@@ -26,12 +27,6 @@ source ${HOME}/${RC_FILE}
 echo "-------- Setting Up Oh My zsh ---------"
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-# Lazygit
-LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name":' |  sed -E 's/.*"v*([^"]+)".*/\1/')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-tar xf lazygit.tar.gz -C /usr/local/bin lazygit
-rm lazygit.tar.gz
 
 # packer
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
@@ -103,6 +98,14 @@ echo "------------------- Installing Minikube -------------------"
 asdf plugin-add minikube
 asdf install minikube ${MINIKUBE_VERSION}
 asdf global minikube ${MINIKUBE_VERSION}
+
+echo "------------------- Installing Lazygit -------------------"
+
+asdf plugin-add lazygit
+asdf install lazygit ${LAZYGIT_VERSION}
+asdf global lazygit ${LAZYGIT_VERSION}
+
+echo "------------------- Sourcing RC File ---------------------"
 
 source ${HOME}/${RC_FILE}
 
