@@ -15,7 +15,7 @@ return require('packer').startup(function(use)
 	use { "ellisonleao/gruvbox.nvim" }
 
 	-- Project
-	use { 
+	use {
 	  'nvim-telescope/telescope.nvim',
 	  tag = '0.1.0',
 	  requires = { {'nvim-lua/plenary.nvim'} }
@@ -31,7 +31,7 @@ return require('packer').startup(function(use)
 	use('mbbill/undotree')
 
         -- Code
-	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 	use('fatih/vim-go', { run = ':GoUpdateBinaries' })
 	use('mzlogin/vim-markdown-toc')
 	use('iamcco/markdown-preview.nvim', { run = "cd app && yarn install" })
