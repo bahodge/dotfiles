@@ -12,6 +12,7 @@ NEOVIM_VERSION="0.8.2"
 RIPGREP_VERSION="13.0.0"
 FZF_VERSION="0.35.1"
 LAZYGIT_VERSION="latest"
+BAT_VERSION="0.22.1"
 
 echo "-------- Setting up rc file ------------"
 
@@ -54,6 +55,12 @@ echo "------------------- Installing Ripgrep -------------------"
 asdf plugin-add ripgrep
 asdf install ripgrep ${RIPGREP_VERSION}
 asdf global ripgrep ${RIPGREP_VERSION}
+
+echo "------------------- Installing Ripgrep -------------------"
+
+asdf plugin-add bat
+asdf install bat ${BAT_VERSION}
+asdf global bat ${BAT_VERSION}
 
 echo "------------------- Installing FZF -------------------"
 
