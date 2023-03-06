@@ -138,9 +138,6 @@ echo -e 'export PATH="${PATH}"' >> ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
 
-# Install any dependencies for nvim
-echo "---------- PackerSync -----------"
-nvim -c PackerSync -c 'sleep 10' -c qa --headless
 
 echo "Installed asdf $(asdf --version)"
 echo "Installed neovim $(nvim --version)"
@@ -153,3 +150,11 @@ echo "Installed kubectl $(kubectl version --client --short)"
 echo "Installed helm $(helm version)"
 echo "Installed minikube $(minikube version)"
 echo "Installed skaffold $(skaffold version)"
+echo "\n"
+
+echo "--------- Post Install -----------------"
+echo "--------- Logout or Restart your machine -------"
+echo "after logout or restart"
+
+# nvim dependencies
+echo "nvim -c PackerSync -c 'sleep 10' -c qa --headless"
