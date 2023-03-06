@@ -14,6 +14,10 @@ FZF_VERSION="0.35.1"
 LAZYGIT_VERSION="latest"
 BAT_VERSION="0.22.1"
 
+echo "-------- Setting Up Oh My zsh ---------"
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 echo "-------- Setting up rc file ------------"
 
 # Setup base config files
@@ -24,10 +28,6 @@ cp -r ${SCRIPT_DIR}/configs/nvim/* ${HOME}/.config/nvim/
 cp ${SCRIPT_DIR}/configs/${RC_FILE} ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
-
-echo "-------- Setting Up Oh My zsh ---------"
-
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # packer
 git clone --depth 1 https://github.com/wbthomason/packer.nvim\
