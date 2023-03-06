@@ -8,5 +8,6 @@
     "typescript.tsx",
     "markdown"
   ],
+  "diagnostic.checkCurrentLine": true,
   "svelte.enable-ts-plugin": true
 }
