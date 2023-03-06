@@ -33,6 +33,6 @@ chmod +x /usr/local/bin/docker-compose
 
 echo "------------- Add your current user to the docker group manually --------------"
 
-echo "usermod -aG docker $USER"
+echo "sudo usermod -aG docker $(who | awk '{print $1'})"
 
 echo "once complete, close this terminal and open a new one"
