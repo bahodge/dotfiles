@@ -13,6 +13,7 @@ RIPGREP_VERSION="13.0.0"
 FZF_VERSION="0.35.1"
 LAZYGIT_VERSION="latest"
 BAT_VERSION="0.22.1"
+FD_VERSION="8.7.0"
 
 echo "-------- Setting Up Oh My zsh ---------"
 
@@ -56,11 +57,17 @@ asdf plugin-add ripgrep
 asdf install ripgrep ${RIPGREP_VERSION}
 asdf global ripgrep ${RIPGREP_VERSION}
 
-echo "------------------- Installing Ripgrep -------------------"
+echo "------------------- Installing bat -------------------"
 
 asdf plugin-add bat
 asdf install bat ${BAT_VERSION}
 asdf global bat ${BAT_VERSION}
+
+echo "------------------- Installing fd -------------------"
+
+asdf plugin-add fd
+asdf install fd ${FD_VERSION}
+asdf global fd ${FD_VERSION}
 
 echo "------------------- Installing FZF -------------------"
 
