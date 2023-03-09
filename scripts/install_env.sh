@@ -152,7 +152,6 @@ echo -e 'export PATH="${PATH}"' >> ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
 
-
 echo "Installed asdf $(asdf --version)"
 echo "Installed neovim $(nvim --version)"
 echo "Installed ripgrep $(rg --version)"

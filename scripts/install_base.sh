@@ -25,7 +25,6 @@ echo "-------- Installing ---------"
 
 apt install -y wget grep tilix zsh docker-ce docker-ce-cli containerd.io
 
-
 echo "------------- Installing Docker Compose ---------------"
 
 curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
