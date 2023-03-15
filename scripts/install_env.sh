@@ -169,5 +169,3 @@ echo "--------- Post Install -----------------"
 echo "--------- Logout or Restart your machine -------"
 echo "after logout or restart"
 
-# nvim dependencies
-echo "nvim -c PackerSync -c 'sleep 10' -c qa --headless"
