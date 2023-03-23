@@ -9,10 +9,10 @@ vim.keymap.set("", "<esc>", ":noh<CR>")
 vim.keymap.set("", "<leader>1", ":source ~/.config/nvim/init.lua | :PackerSync<CR>")
 
 -- Buffer Navigation
-vim.keymap.set("", "<A-h>", "<C-\\><C-n><C-w>h" )
-vim.keymap.set("", "<A-j>", "<C-\\><C-n><C-w>j" )
-vim.keymap.set("", "<A-k>", "<C-\\><C-n><C-w>k" )
-vim.keymap.set("", "<A-l>", "<C-\\><C-n><C-w>l" )
+vim.keymap.set("", "<C-h>", "<C-\\><C-n><C-w>h" )
+vim.keymap.set("", "<C-j>", "<C-\\><C-n><C-w>j" )
+vim.keymap.set("", "<C-k>", "<C-\\><C-n><C-w>k" )
+vim.keymap.set("", "<C-l>", "<C-\\><C-n><C-w>l" )
 
 -- Copy & Pasting
 vim.keymap.set("v", "<leader>y", '"+y')
