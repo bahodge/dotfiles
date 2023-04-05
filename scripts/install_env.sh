@@ -141,7 +141,7 @@ alias k="kubectl"
 alias lg="lazygit"
 
 # Editor
-export EDITOR=/usr/bin/nvim
+export EDITOR=$(which nvim)
 EOL
 
 # I'm doing this out of band of EOL to control the readability of the path var

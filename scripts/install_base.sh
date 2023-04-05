@@ -23,12 +23,18 @@ add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu
 
 echo "-------- Installing ---------"
 
-apt install -y wget grep tilix zsh docker-ce docker-ce-cli containerd.io
+apt install -y wget grep konsole zsh docker-ce docker-ce-cli containerd.io
 
 echo "------------- Installing Docker Compose ---------------"
 
 curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
+
+
+
+echo "------------- Update default terminal --------------"
+
+sudo update-alternatives --config x-terminal-emulator
 
 echo "------------- Add your current user to the docker group manually --------------"
 
