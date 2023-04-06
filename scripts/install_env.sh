@@ -5,7 +5,7 @@ GOLANG_VERSION="1.19"
 NODEJS_VERSION="18.12.0"
 KUBECTL_VERSION="1.23.10"
 HELM_VERSION="3.7.2"
-SKAFFOLD_VERSION="1.39.2"
+SKAFFOLD_VERSION="2.2.0"
 MINIKUBE_VERSION="1.26.1"
 RC_FILE=".zshrc"
 NEOVIM_VERSION="0.8.2"
@@ -23,9 +23,12 @@ echo "-------- Setting up rc file ------------"
 
 # Setup base config files
 rm -rf ${HOME}/.config/nvim
+rm -rf ${HOME}/.local/share/konsole
 rm -rf ${HOME}/${RC_FILE}
 mkdir -p ${HOME}/.config/nvim
+mkdir -p ${HOME}/.local/share/konsole
 cp -r ${SCRIPT_DIR}/configs/nvim/* ${HOME}/.config/nvim/
+cp -r ${SCRIPT_DIR}/configs/konsole/* ${HOME}/.local/share/konsole/
 cp ${SCRIPT_DIR}/configs/${RC_FILE} ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
