@@ -24,7 +24,7 @@ vim.opt.smartcase = true
 vim.opt.scrolloff = 10
 
 -- Enable mouse support
--- vim.opt.mouse = "a"
+vim.opt.mouse = "a"
 
 -- Line numbers
 vim.opt.nu = true
@@ -37,4 +37,10 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "number"
 
 -- Update time is important for coc
-vim.opt.updatetime = 50
+-- Decrease update time
+vim.o.updatetime = 250
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
