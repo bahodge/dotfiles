@@ -45,3 +45,11 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     ]])
   end,
 })
+
+-- Format on write
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    vim.lsp.buf.format({ async = true })
+  end,
+})
