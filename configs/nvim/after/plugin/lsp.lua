@@ -54,8 +54,6 @@ local servers = {
   -- pyright = {},
   -- rust_analyzer = {},
   tsserver = {},
-  zls = {},
-
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
