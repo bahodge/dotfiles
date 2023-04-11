@@ -11,7 +11,7 @@ vim.opt.tabstop = 4
 
 -- Set persistent undo
 vim.opt.undofile = true
-vim.opt.undodir =  string.format("%s/.vim/undo",os.getenv("HOME"))
+vim.opt.undodir = string.format("%s/.vim/undo", os.getenv("HOME"))
 vim.opt.undolevels = 1000
 vim.opt.undoreload = 10000
 
@@ -44,3 +44,4 @@ vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
+vim.o.swapfile = false
