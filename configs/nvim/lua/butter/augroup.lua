@@ -50,6 +50,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
-    vim.lsp.buf.format({ async = true })
+    -- execute synchronously so that this finishes before you write to disk
+    vim.lsp.buf.format({ async = false })
   end,
 })
