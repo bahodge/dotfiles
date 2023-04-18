@@ -1,0 +1,16 @@
+-- local prettier = require("prettier")
+--
+--
+-- prettier.setup {
+--   bin = 'prettierd',
+--   filetimes = {
+--     "css",
+--     "javascript",
+--     "javascriptreact",
+--     "typescript",
+--     "typescriptreact",
+--     "json",
+--     "scss",
+--     "less",
+--   }
+-- }
