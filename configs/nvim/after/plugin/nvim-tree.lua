@@ -16,7 +16,7 @@ require("nvim-tree").setup({
     adaptive_size = true,
     mappings = {
       list = {
-        { key = "u", action = "dir_up" },
+        { key = "u",  action = "dir_up" },
         { key = "cd", action = "cd" },
       },
     },
@@ -25,7 +25,7 @@ require("nvim-tree").setup({
     group_empty = false,
   },
   filters = {
-   -- dotfiles = true,
+    -- dotfiles = true,
   },
   update_focused_file = {
     enable = true,
@@ -36,4 +36,3 @@ require("nvim-tree").setup({
 -- Remapped keys
 vim.keymap.set("", "<C-b>", ":NvimTreeToggle<CR>")
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
-

@@ -14,10 +14,10 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Buffer Navigation
-vim.keymap.set("", "<C-h>", "<C-\\><C-n><C-w>h" )
-vim.keymap.set("", "<C-j>", "<C-\\><C-n><C-w>j" )
-vim.keymap.set("", "<C-k>", "<C-\\><C-n><C-w>k" )
-vim.keymap.set("", "<C-l>", "<C-\\><C-n><C-w>l" )
+vim.keymap.set("", "<C-h>", "<C-\\><C-n><C-w>h")
+vim.keymap.set("", "<C-j>", "<C-\\><C-n><C-w>j")
+vim.keymap.set("", "<C-k>", "<C-\\><C-n><C-w>k")
+vim.keymap.set("", "<C-l>", "<C-\\><C-n><C-w>l")
 
 -- Copy & Pasting
 vim.keymap.set("v", "<leader>y", '"+y')
@@ -52,10 +52,10 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })

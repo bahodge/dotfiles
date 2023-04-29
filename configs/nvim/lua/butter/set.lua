@@ -6,7 +6,7 @@ vim.opt.cursorline = true
 
 -- Set tabs and indents
 vim.opt.expandtab = true
-vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 
 -- Set persistent undo
