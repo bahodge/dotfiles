@@ -1,1 +1,1 @@
-vim.cmd.colorscheme "snazzy"
+vim.cmd.colorscheme "kanagawa"

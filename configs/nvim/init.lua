@@ -63,7 +63,7 @@ require('lazy').setup({
   { 'folke/which-key.nvim',      opts = {} },
 
   -- Theme
-
+  --
   -- {
   --   'navarasu/onedark.nvim',
   --   priority = 1000,
@@ -72,7 +72,8 @@ require('lazy').setup({
   --   end,
   -- },
   { 'xiyaowong/transparent.nvim' },
-  { 'connorholyday/vim-snazzy' },
+  -- { 'connorholyday/vim-snazzy' },
+  { 'rebelot/kanagawa.nvim' },
 
   -- Set lualine as statusline
   -- See `:help lualine.txt`
