@@ -23,11 +23,12 @@ echo "-------- Setting up rc file ------------"
 
 # Setup base config files
 rm -rf ${HOME}/.config/nvim
-rm -f ${HOME}/.wezterm.lua
+rm -f ${HOME}/.local/share/konsole
 rm -f ${HOME}/${RC_FILE}
 mkdir -p ${HOME}/.config/nvim
+mkdir ${HOME}/.local/share/konsole
 cp -r ${SCRIPT_DIR}/configs/nvim/* ${HOME}/.config/nvim/
-cp ${SCRIPT_DIR}/configs/wezterm/.wezterm.lua ${HOME}/.wezterm.lua
+cp -r ${SCRIPT_DIR}/configs/konsole/* ${HOME}/.local/share/konsole
 cp ${SCRIPT_DIR}/configs/${RC_FILE} ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
