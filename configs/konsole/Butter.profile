@@ -1,8 +1,9 @@
 [Appearance]
-ColorScheme=Breeze
-Font=Bitstream Vera Sans Mono,11,-1,5,75,0,0,0,0,0,Bold
+Font=monospace,10,-1,2,50,0,0,0,0,0
 
 [General]
-DimWhenInactive=false
 Name=Butter
 Parent=FALLBACK/
+
+[Scrolling]
+HistoryMode=2
