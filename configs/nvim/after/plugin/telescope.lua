@@ -4,9 +4,13 @@ require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
+        -- ['<C-u>'] = false,
+        -- ['<C-d>'] = false,
+        ['<C-d>'] = require('telescope.actions').delete_buffer
       },
+      n = {
+        ['<C-d>'] = require('telescope.actions').delete_buffer
+      }
     },
   },
 }
@@ -24,6 +28,7 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
+
 
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
