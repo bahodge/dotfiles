@@ -44,9 +44,9 @@ require('lazy').setup({
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
 
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = { tag = 'legacy' } },
+      -- -- Useful status updates for LSP
+      -- -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+      -- { 'j-hui/fidget.nvim', opts = { tag = 'legacy' } },
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
@@ -63,8 +63,7 @@ require('lazy').setup({
 
   -- Theme
   { 'xiyaowong/transparent.nvim' },
-  -- { 'connorholyday/vim-snazzy' },
-  { 'rebelot/kanagawa.nvim' },
+  { 'srcery-colors/srcery-vim',  as = 'srcery' },
 
   -- Set lualine as statusline
   -- See `:help lualine.txt`
@@ -72,8 +71,8 @@ require('lazy').setup({
     'nvim-lualine/lualine.nvim',
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'onedark',
+        icons_enabled = true,
+        theme = 'papercolor_dark',
         component_separators = '|',
         section_separators = '',
       },
@@ -115,9 +114,6 @@ require('lazy').setup({
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
   },
-
-
-
 }, {})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
