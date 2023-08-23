@@ -63,7 +63,16 @@ require('lazy').setup({
 
   -- Theme
   { 'xiyaowong/transparent.nvim' },
-  { 'srcery-colors/srcery-vim',  as = 'srcery' },
+  -- { 'srcery-colors/srcery-vim',  as = 'srcery' },
+  -- { 'connorholyday/vim-snazzy' },
+  -- { 'rebelot/kanagawa.nvim' },
+  {
+    "tiagovla/tokyodark.nvim",
+    opts = {
+      -- custom options here
+      gamma = 1.20,
+    },
+  },
 
   -- Set lualine as statusline
   -- See `:help lualine.txt`
