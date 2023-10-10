@@ -20,10 +20,12 @@ apt autoremove -y
 echo "--------- Adding repositories ----------"
 
 add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+add-apt-repository ppa:maveonair/helix-editor
 
 echo "-------- Installing ---------"
 
-apt install -y konsole wget grep zsh docker-ce docker-ce-cli containerd.io
+apt upage -y
+apt install -y konsole wget grep zsh docker-ce docker-ce-cli containerd.io helix
 
 echo "------------- Installing Docker Compose ---------------"
 
