@@ -31,9 +31,6 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  -- JS Formatting
-  'jose-elias-alvarez/null-ls.nvim',
-
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
   {
@@ -63,16 +60,12 @@ require('lazy').setup({
 
   -- Theme
   { 'xiyaowong/transparent.nvim' },
+  { "ellisonleao/gruvbox.nvim",  priority = 1000, config = true },
+
   -- { 'srcery-colors/srcery-vim',  as = 'srcery' },
   -- { 'connorholyday/vim-snazzy' },
   -- { 'rebelot/kanagawa.nvim' },
-  {
-    "tiagovla/tokyodark.nvim",
-    opts = {
-      -- custom options here
-      gamma = 1.20,
-    },
-  },
+  -- { "tiagovla/tokyodark.nvim", opts = { gamma = 1.20, }, },
 
   -- Set lualine as statusline
   -- See `:help lualine.txt`
@@ -112,6 +105,9 @@ require('lazy').setup({
       return vim.fn.executable 'make' == 1
     end,
   },
+
+  -- auto close parens
+  { "windwp/nvim-autopairs" },
 
   {
     -- Highlight, edit, and navigate code
