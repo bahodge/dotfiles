@@ -1,12 +1,12 @@
-theme = "snazzy"
+theme = "ayu_mirage"
 
 [editor]
 line-number = "relative"
 mouse = false
 bufferline = "always"
-cursorline = true
-
-# gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
+cursorline = false
+gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
+rulers = [100]
 
 [editor.cursor-shape]
 insert = "bar"
@@ -19,3 +19,24 @@ A-x = "extend_to_line_bounds"
 [keys.select]
 X = ["ensure_selections_forward", "flip_selections", "extend_line_up", "extend_to_line_bounds"]
 A-x = "extend_to_line_bounds"
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.indent-guides]
+render = true
+character = "⸽" # Some characters that work well: "╎" "▏", "┆", "┊", 
+
+[editor.smart-tab]
+enable = false
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 25 # increase value to reduce forced mid-word wrapping
+
