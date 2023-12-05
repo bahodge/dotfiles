@@ -17,8 +17,8 @@ auto-format = true
 
 [[language]]
 name = "typescript"
-formatter = { command = 'prettier' }
 auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
 
 [[language]]
 name = "tsx"
