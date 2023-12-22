@@ -74,7 +74,6 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        path = 2,
         theme = 'papercolor_dark',
         component_separators = '|',
         section_separators = '',
