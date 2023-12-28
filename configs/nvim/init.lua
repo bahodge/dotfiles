@@ -32,41 +32,46 @@ require('lazy').setup({
   'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
+  --  The configuration is done be/ow. Search for lspconfig to find it below.
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-
-      -- -- Useful status updates for LSP
-      -- -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      -- { 'j-hui/fidget.nvim', opts = { tag = 'legacy' } },
-      -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
   },
 
   {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
+
+  {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip' },
   },
 
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',      opts = {} },
 
-  -- Theme
+  -- Themes
   { 'xiyaowong/transparent.nvim' },
-  { "ellisonleao/gruvbox.nvim",  priority = 1000, config = true },
-
-  -- { 'srcery-colors/srcery-vim',  as = 'srcery' },
-  -- { 'connorholyday/vim-snazzy' },
-  -- { 'rebelot/kanagawa.nvim' },
-  -- { "tiagovla/tokyodark.nvim", opts = { gamma = 1.20, }, },
-
+  { "ellisonleao/gruvbox.nvim",  priority = 1000,          config = true },
+  { "sainnhe/sonokai" },
+  { 'srcery-colors/srcery-vim',  as = 'srcery' },
+  { 'connorholyday/vim-snazzy' },
+  { 'rebelot/kanagawa.nvim' },
+  { "tiagovla/tokyodark.nvim",   opts = { gamma = 1.20, }, },
+  { "EdenEast/nightfox.nvim" },
+  { "catppuccin/nvim",           name = "catppuccin",      priority = 1000 },
   -- Set lualine as statusline
   -- See `:help lualine.txt`
   {
@@ -74,7 +79,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = true,
-        theme = 'papercolor_dark',
+        theme = 'sonokai',
         component_separators = '|',
         section_separators = '',
       },
@@ -84,6 +89,13 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',   opts = {} },
 
+  -- Markdown previewer
+  {
+    "iamcco/markdown-preview.nvim",
+    config = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
@@ -91,7 +103,8 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim' }
   },
-  { 'nvim-tree/nvim-tree.lua', requires = { 'nvim-tree/nvim-web-devicons' }, tag = 'nightly' },
+
+  { 'nvim-tree/nvim-tree.lua', requires = { "nvim-tree/nvim-web-devicons" }, tag = 'nightly' },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system

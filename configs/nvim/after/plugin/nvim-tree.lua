@@ -1,17 +1,13 @@
-# disable netrw at the very start of your init.lua (strongly advised)
+-- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
-local function open_nvim_tree()
-  -- open the tree
-  require("nvim-tree.api").tree.open()
-end
-
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
+
   view = {
     adaptive_size = true,
     mappings = {
@@ -35,4 +31,9 @@ require("nvim-tree").setup({
 
 -- Remapped keys
 vim.keymap.set("", "<C-b>", ":NvimTreeToggle<CR>")
+
+local function open_nvim_tree()
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })

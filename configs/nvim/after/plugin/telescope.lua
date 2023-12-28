@@ -4,10 +4,12 @@
 local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
 local themes = require('telescope.themes')
+local trouble = require("trouble.providers.telescope")
 
 
 require('telescope').setup {
   defaults = {
+    file_ignore_patterns = { ".git", "node_modules" },
     mappings = {
       i = {
         -- ['<C-u>'] = false,

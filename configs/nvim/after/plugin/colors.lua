@@ -2,4 +2,7 @@
 -- vim.cmd.colorscheme "kanagawa"
 -- vim.cmd.colorscheme "snazzy"
 -- vim.cmd.colorscheme "tokyodark"
-vim.cmd.colorscheme "gruvbox"
+-- vim.cmd.colorscheme "gruvbox"
+-- vim.cmd.colorscheme "sonokai"
+-- vim.cmd.colorscheme "nightfox"
+vim.cmd.colorscheme "catppuccin-macchiato"
