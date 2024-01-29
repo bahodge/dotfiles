@@ -50,6 +50,7 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   tsserver = {},
+  pyright = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
