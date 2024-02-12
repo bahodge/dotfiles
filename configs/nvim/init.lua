@@ -42,7 +42,6 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -52,7 +51,27 @@ require('lazy').setup({
       -- refer to the configuration section below
     }
   },
+  {
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "nvimtools/none-ls.nvim",
+    },
+    config = function()
+      require("mason-null-ls").setup({
+        ensure_installed = { "black" }
+      })
 
+      local null_ls = require("null-ls")
+
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.formatting.black,
+        }
+      })
+    end,
+  },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
