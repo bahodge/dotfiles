@@ -72,6 +72,7 @@ require('lazy').setup({
       })
     end,
   },
+  { 'echasnovski/mini.nvim',     version = '*' },
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
