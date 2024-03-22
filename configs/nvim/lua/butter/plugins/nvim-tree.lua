@@ -18,12 +18,6 @@ return {
 				width = 35,
 				relativenumber = true,
 				adaptive_size = true,
-				mappings = {
-					list = {
-						{ key = "u", action = "dir_up" },
-						{ key = "cd", action = "cd" },
-					},
-				},
 			},
 			-- change folder arrow icons
 			renderer = {
@@ -62,13 +56,6 @@ return {
 			},
 		})
 
-		local function open_nvim_tree()
-			-- open the tree
-			require("nvim-tree.api").tree.open()
-		end
-		-- open the tree on startup
-		vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
-
 		-- set keymaps
 		local keymap = vim.keymap -- for conciseness
 
@@ -81,5 +68,12 @@ return {
 		) -- toggle file explorer on current file
 		keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" }) -- collapse file explorer
 		keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" }) -- refresh file explorer
+
+		-- mappings = {
+		-- 	list = {
+		-- 		{ key = "u", action = "dir_up" },
+		-- 		{ key = "cd", action = "cd" },
+		-- 	},
+		-- },
 	end,
 }

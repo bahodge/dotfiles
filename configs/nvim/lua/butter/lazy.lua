@@ -23,6 +23,3 @@ require("lazy").setup({ { import = "butter.plugins" }, { import = "butter.plugin
 		notify = false,
 	},
 })
-
--- Set the actual colorscheme to be used across the env
-vim.cmd("colorscheme gruvbox")
