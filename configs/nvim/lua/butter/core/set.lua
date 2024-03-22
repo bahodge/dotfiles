@@ -34,7 +34,7 @@ vim.opt.relativenumber = true
 vim.opt.clipboard = "unnamedplus"
 
 -- Always show the signcolumn
-vim.opt.signcolumn = "number"
+vim.opt.signcolumn = "auto"
 
 -- Update time is important for coc
 -- Decrease update time
@@ -43,5 +43,5 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = "menuone,noselect"
 vim.o.swapfile = false
