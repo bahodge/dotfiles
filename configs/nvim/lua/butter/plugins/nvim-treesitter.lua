@@ -12,6 +12,7 @@ return {
 			local treesitter = require("nvim-treesitter.configs")
 
 			-- configure treesitter
+			---@diagnostic disable-next-line: missing-fields
 			treesitter.setup({ -- enable syntax highlighting
 				highlight = {
 					enable = true,
@@ -34,7 +35,6 @@ return {
 					"css",
 					"markdown",
 					"markdown_inline",
-					"svelte",
 					"graphql",
 					"bash",
 					"lua",
@@ -42,6 +42,7 @@ return {
 					"dockerfile",
 					"gitignore",
 					"go",
+					"zig",
 				},
 				incremental_selection = {
 					enable = true,

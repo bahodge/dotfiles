@@ -74,8 +74,14 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
-		--
-		-- configure html server
+
+		-- configure zls server
+		lspconfig["zls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
+
+		-- configure gopls server
 		lspconfig["gopls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
