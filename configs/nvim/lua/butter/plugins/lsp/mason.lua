@@ -32,6 +32,7 @@ return {
 				"html",
 				"lua_ls",
 				"pyright",
+				"rust_analyzer",
 				"tsserver",
 				"zls",
 			},
