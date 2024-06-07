@@ -1,12 +1,12 @@
-theme = "sonokai"
+theme = "snazzy"
 
 [editor]
 line-number = "relative"
-mouse = false
+mouse = true
 bufferline = "always"
-cursorline = false
+cursorline = true
 gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
-rulers = [100]
+rulers = [120]
 
 [editor.cursor-shape]
 insert = "bar"
