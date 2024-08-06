@@ -74,6 +74,12 @@ return {
 			local hl = "DiagnosticSign" .. type
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
+		--
+		-- configure rust server
+		lspconfig["clangd"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
 		-- configure rust server
 		lspconfig["rust_analyzer"].setup({
