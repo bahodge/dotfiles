@@ -34,7 +34,7 @@ return {
 				"lua_ls",
 				"pyright",
 				"rust_analyzer",
-				"tsserver",
+				"ts_ls",
 				"zls",
 			},
 			-- auto-install configured servers (with lspconfig)
