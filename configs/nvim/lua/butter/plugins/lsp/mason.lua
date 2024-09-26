@@ -27,12 +27,12 @@ return {
 		mason_lspconfig.setup({
 			-- list of servers for mason to install
 			ensure_installed = {
+				"bashls",
 				"clangd",
 				"gopls",
 				"graphql",
 				"html",
 				"lua_ls",
-				"pyright",
 				"rust_analyzer",
 				"ts_ls",
 				"zls",
@@ -43,12 +43,10 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				"black", -- python formatter
+				"shfmt", -- shell formatter
 				"cpplint", -- c/c++ linter
 				"eslint_d", -- js linter
-				"isort", -- python formatter
 				"prettier", -- prettier formatter
-				"pylint", -- python linter
 				"stylua", -- lua formatter
 			},
 		})
