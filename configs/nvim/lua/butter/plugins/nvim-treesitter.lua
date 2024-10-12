@@ -27,6 +27,7 @@ return {
 				ensure_installed = {
 					"bash",
 					"c",
+					-- "crystal",
 					"css",
 					"dockerfile",
 					"gitignore",
