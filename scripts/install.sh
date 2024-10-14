@@ -1,19 +1,20 @@
 #! /bin/zsh
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-ASDF_VERSION="0.10.2"
-GOLANG_VERSION="1.19"
-NODEJS_VERSION="18.12.0"
+ASDF_VERSION="0.14.0"
+GOLANG_VERSION="1.23.2"
+NODEJS_VERSION="20.18.0"
+ZIG_VERSION="0.13.0"
 KUBECTL_VERSION="1.23.10"
 HELM_VERSION="3.7.2"
 SKAFFOLD_VERSION="2.2.0"
 MINIKUBE_VERSION="1.26.1"
 RC_FILE=".zshrc"
-NEOVIM_VERSION="0.8.2"
-RIPGREP_VERSION="13.0.0"
-FZF_VERSION="0.35.1"
+NEOVIM_VERSION="0.10.2"
+RIPGREP_VERSION="14.1.1"
+FZF_VERSION="0.55.0"
 LAZYGIT_VERSION="latest"
-BAT_VERSION="0.22.1"
-FD_VERSION="8.7.0"
+BAT_VERSION="0.24.0"
+FD_VERSION="9.0.0"
 
 echo "-------- Setting Up Oh My zsh ---------"
 
@@ -23,15 +24,11 @@ echo "-------- Setting up rc file ------------"
 
 # Setup base config files
 rm -rf ${HOME}/.config/nvim
-rm -rf ${HOME}/.config/helix
-rm -f ${HOME}/.local/share/konsole
 rm -f ${HOME}/${RC_FILE}
 mkdir -p ${HOME}/.config/nvim
-mkdir -p ${HOME}/.config/helix
-mkdir ${HOME}/.local/share/konsole
+mkdir -p ${HOME}/.config/terminator
 cp -r ${SCRIPT_DIR}/configs/nvim/* ${HOME}/.config/nvim/
-cp -r ${SCRIPT_DIR}/configs/helix/* ${HOME}/.config/helix/
-cp -r ${SCRIPT_DIR}/configs/konsole/* ${HOME}/.local/share/konsole
+cp -r ${SCRIPT_DIR}/configs/terminator/* ${HOME}/.config/terminator/
 cp ${SCRIPT_DIR}/configs/${RC_FILE} ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
@@ -94,6 +91,12 @@ echo "---------- Installing GO ---------------"
 asdf plugin-add golang
 asdf install golang ${GOLANG_VERSION}
 asdf global golang ${GOLANG_VERSION}
+
+echo "---------- Installing ZIG ---------------"
+
+asdf plugin-add zig
+asdf install zig ${ZIG_VERSION}
+asdf global zig ${ZIG_VERSION}
 
 echo "------------------- Installing Kubectl -------------------"
 

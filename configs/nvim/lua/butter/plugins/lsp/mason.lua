@@ -44,7 +44,6 @@ return {
 		mason_tool_installer.setup({
 			ensure_installed = {
 				"shfmt", -- shell formatter
-				"cpplint", -- c/c++ linter
 				"eslint_d", -- js linter
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
