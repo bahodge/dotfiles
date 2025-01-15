@@ -9,9 +9,10 @@ HELM_VERSION="3.7.2"
 SKAFFOLD_VERSION="2.2.0"
 MINIKUBE_VERSION="1.26.1"
 RC_FILE=".zshrc"
-NEOVIM_VERSION="0.10.2"
+NEOVIM_VERSION="0.10.3"
+HELIX_VERSION="25.01"
 RIPGREP_VERSION="14.1.1"
-FZF_VERSION="0.55.0"
+FZF_VERSION="0.57.0"
 LAZYGIT_VERSION="latest"
 BAT_VERSION="0.24.0"
 FD_VERSION="9.0.0"
@@ -24,18 +25,17 @@ echo "-------- Setting up rc file ------------"
 
 # Setup base config files
 rm -rf ${HOME}/.config/nvim
+rm -rf ${HOME}/.config/helix
 rm -f ${HOME}/${RC_FILE}
 mkdir -p ${HOME}/.config/nvim
+mkdir -p ${HOME}/.config/helix
 mkdir -p ${HOME}/.config/terminator
 cp -r ${SCRIPT_DIR}/configs/nvim/* ${HOME}/.config/nvim/
+cp -r ${SCRIPT_DIR}/configs/helix/* ${HOME}/.config/helix/
 cp -r ${SCRIPT_DIR}/configs/terminator/* ${HOME}/.config/terminator/
 cp ${SCRIPT_DIR}/configs/${RC_FILE} ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
-
-# packer
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 echo "----------- Installing asdf ----------------"
 
@@ -53,6 +53,12 @@ echo "------------------- Installing Neovim -------------------"
 asdf plugin-add neovim
 asdf install neovim ${NEOVIM_VERSION}
 asdf global neovim ${NEOVIM_VERSION}
+
+echo "------------------- Installing Helix -------------------"
+
+asdf plugin-add helix-editor
+asdf install helix-editor ${HELIX_VERSION}
+asdf global helix-editor ${HELIX_VERSION}
 
 echo "------------------- Installing Ripgrep -------------------"
 
@@ -163,6 +169,7 @@ source ${HOME}/${RC_FILE}
 
 echo "Installed asdf $(asdf --version)"
 echo "Installed neovim $(nvim --version)"
+echo "Installed helix $(hx --version)"
 echo "Installed ripgrep $(rg --version)"
 echo "Installed fzf $(fzf --version)"
 echo "Installed nodejs $(node --version)"

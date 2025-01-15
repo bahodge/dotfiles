@@ -1,4 +1,4 @@
-theme = "snazzy"
+theme = "ayu_mirage"
 
 [editor]
 line-number = "relative"
@@ -7,6 +7,7 @@ bufferline = "always"
 cursorline = true
 gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 rulers = [120]
+end-of-line-diagnostics = "hint"
 
 [editor.cursor-shape]
 insert = "bar"
