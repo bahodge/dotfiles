@@ -159,12 +159,13 @@ echo -e 'export GOPATH="$(go env GOPATH)"' >> ${HOME}/${RC_FILE}
 echo -e 'export PATH="${PATH}:${GOPATH}/bin"' >> ${HOME}/${RC_FILE}
 echo -e 'export PATH="${PATH}"' >> ${HOME}/${RC_FILE}
 
+echo "------------------- Sourcing RC File ---------------------"
+
 source ${HOME}/${RC_FILE}
 
 echo "********************* POST INSTALL *********************"
 
-if groups | grep -qF docker; then
-else
+if ! groups | grep -qF docker; then
     echo "adding user to docker group. this will require a system reboot"
     sudo usermod -aG docker ${USER}
 fi
