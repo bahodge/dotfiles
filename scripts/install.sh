@@ -1,21 +1,19 @@
-#! /bin/zsh
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-ASDF_VERSION="0.14.0"
-GOLANG_VERSION="1.23.2"
-NODEJS_VERSION="20.18.0"
-ZIG_VERSION="0.14.0"
-KUBECTL_VERSION="1.23.10"
-HELM_VERSION="3.7.2"
-SKAFFOLD_VERSION="2.2.0"
-MINIKUBE_VERSION="1.26.1"
-RC_FILE=".zshrc"
-NEOVIM_VERSION="0.10.3"
-HELIX_VERSION="25.01"
-RIPGREP_VERSION="14.1.1"
-FZF_VERSION="0.57.0"
-LAZYGIT_VERSION="latest"
-BAT_VERSION="0.24.0"
-FD_VERSION="9.0.0"
+#! /bin/bash
+
+# global variables
+if ps -p $$ | grep -q zsh$; then
+    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+    ASDF_TOOL_VERSIONS_FILE="${SCRIPT_DIR}/.tool-versions"
+    CURRENT_SHELL="zsh"
+    RC_FILE=".zshrc"
+else
+    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+    ASDF_TOOL_VERSIONS_FILE="${SCRIPT_DIR}/../.tool-versions"
+    CURRENT_SHELL="bash"
+    RC_FILE=".bashrc"
+fi;
+
+echo "CURRENT SHELL ${CURRENT_SHELL} - ${RC_FILE}"
 
 echo "-------- Setting Up Oh My zsh ---------"
 
@@ -26,6 +24,7 @@ echo "-------- Setting up rc file ------------"
 # Setup base config files
 rm -rf ${HOME}/.config/nvim
 rm -rf ${HOME}/.config/helix
+rm -rf ${HOME}/.config/terminator
 rm -f ${HOME}/${RC_FILE}
 mkdir -p ${HOME}/.config/nvim
 mkdir -p ${HOME}/.config/helix
@@ -35,104 +34,97 @@ cp -r ${SCRIPT_DIR}/configs/helix/* ${HOME}/.config/helix/
 cp -r ${SCRIPT_DIR}/configs/terminator/* ${HOME}/.config/terminator/
 cp ${SCRIPT_DIR}/configs/${RC_FILE} ${HOME}/${RC_FILE}
 
-source ${HOME}/${RC_FILE}
+echo "----------- Installing apt dependencies ----------"
+
+echo "updating apt: prompting for sudo password"
+sudo apt update -y
+
+echo "installing apt dependencies"
+sudo apt install -y build-essential curl apt-transport-https ca-certificates gnupg-agent software-properties-common xclip
+
+echo -n "Do you want to install docker? (y/n): "
+read answer
+if [[ "$answer" =~ ^[Yy]$ ]]; then
+    echo "----------- Installing docker and docker compose ----------"
+
+    echo "removing all old docker versions"
+    for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove $pkg; done
+
+    echo "adding docker's official GPG key"
+
+    sudo apt-get update -y
+    sudo apt-get install ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+    echo "adding apt repository to apt sources"
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+      $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update -y
+
+    echo "installing docker and docker compose"
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+else
+    echo "skipping docker installation"
+fi
 
 echo "----------- Installing asdf ----------------"
 
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v${ASDF_VERSION}
-# If this line does not exist in the the rc file, then append it
-grep -qF -- "$HOME/.asdf/asdf.sh" "$HOME/$RC_FILE" || echo "\n# asdf\n. $HOME/.asdf/asdf.sh" >> "$HOME/$RC_FILE"
-source ${HOME}/${RC_FILE}
+ASDF_INSTALL_LOCATION=$(which asdf)
 
-echo "---------- Updating asdf ----------------"
+if [ ! -f "${ASDF_INSTALL_LOCATION}" ]; then
+   echo "asdf is not installed, installing the latest version"
+   ASDF_INSTALL_LOCATION="/usr/bin"
 
-asdf update
+   # Edit the line under this to install a different version of asdf
+   ASDF_VERSION="v0.16.7"
+   ASDF_BIN_TARBALL="asdf-${ASDF_VERSION}-linux-amd64.tar.gz"
+   wget https://github.com/asdf-vm/asdf/releases/download/${ASDF_VERSION}/${ASDF_BIN_TARBALL}
 
-echo "------------------- Installing Neovim -------------------"
+   echo "extracting asdf bin"
+   tar -xvf ${ASDF_BIN_TARBALL}
 
-asdf plugin-add neovim
-asdf install neovim ${NEOVIM_VERSION}
-asdf global neovim ${NEOVIM_VERSION}
+   sudo mv asdf /usr/bin/
 
-echo "------------------- Installing Helix -------------------"
+   echo "cleaning up tarball"
+   rm ${ASDF_BIN_TARBALL}
+else
+    echo "asdf is already installed"
+fi
 
-asdf plugin-add helix-editor
-asdf install helix-editor ${HELIX_VERSION}
-asdf global helix-editor ${HELIX_VERSION}
+echo "----------- Configuring asdf ----------------"
 
-echo "------------------- Installing Ripgrep -------------------"
+ASDF_DATA_DIR="${HOME}/.asdf"
+mkdir -p "${ASDF_DATA_DIR}"
 
-asdf plugin-add ripgrep
-asdf install ripgrep ${RIPGREP_VERSION}
-asdf global ripgrep ${RIPGREP_VERSION}
+EXPORT_ASDF_DATA_DIR="export ASDF_DATA_DIR=${ASDF_DATA_DIR}"
+EXPORT_ASDF_SHIMS_PATH="export PATH=${ASDF_DATA_DIR}/shims:\${PATH}"
 
-echo "------------------- Installing bat -------------------"
+echo "updating ${RC_FILE} for asdf"
+grep -qF -- "# asdf variables" ${HOME}/${RC_FILE} || echo -e "\n# asdf variables" >> "${HOME}/${RC_FILE}"
+grep -qF -- "${EXPORT_ASDF_DATA_DIR}" ${HOME}/${RC_FILE} || echo -e "${EXPORT_ASDF_DATA_DIR}" >> "${HOME}/${RC_FILE}"
+grep -qF -- "${EXPORT_ASDF_SHIMS_PATH}" ${HOME}/${RC_FILE} || echo -e "${EXPORT_ASDF_SHIMS_PATH}" >> "${HOME}/${RC_FILE}"
 
-asdf plugin-add bat
-asdf install bat ${BAT_VERSION}
-asdf global bat ${BAT_VERSION}
+source "${HOME}/${RC_FILE}"
 
-echo "------------------- Installing fd -------------------"
+echo "installing dependencies"
 
-asdf plugin-add fd
-asdf install fd ${FD_VERSION}
-asdf global fd ${FD_VERSION}
+while read -r name version; do
+  echo "installing ${name} @ version: ${version}"
+  asdf plugin add ${name}
+  asdf install ${name} ${version}
+  asdf set -u ${name} ${version}
+  echo "installed ${name}@${version}"
+done < ${ASDF_TOOL_VERSIONS_FILE}
 
-echo "------------------- Installing FZF -------------------"
+echo "installing core node dependencies"
 
-asdf plugin-add fzf
-asdf install fzf ${FZF_VERSION}
-asdf global fzf ${FZF_VERSION}
+npm install -g yarn typescript-language-server
 
-
-echo "---------- Installing nodejs ---------------"
-
-asdf plugin-add nodejs
-asdf install nodejs ${NODEJS_VERSION}
-asdf global nodejs ${NODEJS_VERSION}
 asdf reshim
-
-echo "---------- Installing GO ---------------"
-
-asdf plugin-add golang
-asdf install golang ${GOLANG_VERSION}
-asdf global golang ${GOLANG_VERSION}
-
-echo "---------- Installing ZIG ---------------"
-
-asdf plugin-add zig
-asdf install zig ${ZIG_VERSION}
-asdf global zig ${ZIG_VERSION}
-
-echo "------------------- Installing Kubectl -------------------"
-
-asdf plugin-add kubectl
-asdf install kubectl ${KUBECTL_VERSION}
-asdf global kubectl ${KUBECTL_VERSION}
-
-echo "------------------- Installing Helm -------------------"
-
-asdf plugin-add helm
-asdf install helm ${HELM_VERSION}
-asdf global helm ${HELM_VERSION}
-
-echo "------------------- Installing Skaffold -------------------"
-
-asdf plugin-add skaffold
-asdf install skaffold ${SKAFFOLD_VERSION}
-asdf global skaffold ${SKAFFOLD_VERSION}
-
-echo "------------------- Installing Minikube -------------------"
-
-asdf plugin-add minikube
-asdf install minikube ${MINIKUBE_VERSION}
-asdf global minikube ${MINIKUBE_VERSION}
-
-echo "------------------- Installing Lazygit -------------------"
-
-asdf plugin-add lazygit
-asdf install lazygit ${LAZYGIT_VERSION}
-asdf global lazygit ${LAZYGIT_VERSION}
 
 echo "------------------- Sourcing RC File ---------------------"
 
@@ -146,6 +138,7 @@ npm install -g yarn typescript-language-server
 echo "--------- Tidying rc file ------"
 
 cat >>${HOME}/${RC_FILE} <<EOL
+
 # Shell Utils
 [[ $(which kubectl) ]] && source <(kubectl completion zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -157,6 +150,7 @@ alias lg="lazygit"
 
 # Editor
 export EDITOR=$(which nvim)
+
 EOL
 
 # I'm doing this out of band of EOL to control the readability of the path var
@@ -167,21 +161,12 @@ echo -e 'export PATH="${PATH}"' >> ${HOME}/${RC_FILE}
 
 source ${HOME}/${RC_FILE}
 
-echo "Installed asdf $(asdf --version)"
-echo "Installed neovim $(nvim --version)"
-echo "Installed helix $(hx --version)"
-echo "Installed ripgrep $(rg --version)"
-echo "Installed fzf $(fzf --version)"
-echo "Installed nodejs $(node --version)"
-echo "Installed yarn $(yarn --version)"
-echo "Installed go $(go version)"
-echo "Installed kubectl $(kubectl version --client --short)"
-echo "Installed helm $(helm version)"
-echo "Installed minikube $(minikube version)"
-echo "Installed skaffold $(skaffold version)"
-echo "\n"
+echo "********************* POST INSTALL *********************"
 
-echo "--------- Post Install -----------------"
-echo "--------- Logout or Restart your machine -------"
-echo "after logout or restart"
+if groups | grep -qF docker; then
+else
+    echo "adding user to docker group. this will require a system reboot"
+    sudo usermod -aG docker ${USER}
+fi
 
+echo "----------------------- restart this shell -----------------------"

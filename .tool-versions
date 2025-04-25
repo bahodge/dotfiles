@@ -1,0 +1,14 @@
+bat 0.24.0
+fd 9.0.0
+fzf 0.57.0
+golang 1.23.2
+helix-editor 25.01
+helm 3.7.2
+kubectl 1.23.10
+lazygit 0.49.0
+minikube 1.26.1
+neovim 0.10.3
+nodejs 20.18.0
+ripgrep 14.1.1
+skaffold 2.2.0
+zig 0.14.0
