@@ -15,6 +15,7 @@ echo "CURRENT SHELL ${CURRENT_SHELL} - ${RC_FILE}"
 
 # Literally nuke everything important
 sudo rm -f /usr/bin/asdf
+sudo rm -rf ~/.asdf
 rm -rf ${HOME}/.config/nvim
 rm -rf ${HOME}/.config/helix
 rm -rf ${HOME}/.local/share/konsole
