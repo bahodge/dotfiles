@@ -1,4 +1,4 @@
-theme = "snazzy"
+theme = "iroaseta"
 
 [editor]
 line-number = "relative"
@@ -8,6 +8,9 @@ cursorline = true
 gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
 rulers = [120]
 end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "error"
 
 [editor.cursor-shape]
 insert = "bar"
