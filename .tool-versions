@@ -12,3 +12,5 @@ nodejs 20.18.0
 ripgrep 14.1.1
 skaffold 2.2.0
 zig 0.14.0
+rust 1.86.0
+rust-analyzer 2025-05-12
