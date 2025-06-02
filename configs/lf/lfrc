@@ -1,0 +1,62 @@
+#### Init
+# ${{
+#   TRASH_DIR="${HOME}/.trash"
+#   if [ ! -d "${TRASH_DIR}" ]; then
+# 	mkdir -p ${TRASH_DIR}
+# 	echo "${TRASH_DIR} initialized"
+#   fi
+# }}
+
+#### Unmap
+
+#### Create a file
+cmd touch %{{
+	printf "filename: ";
+	read ans;
+	touch $ans;
+	printf "created file: $ans"
+}} 
+map a touch
+
+#### Create a directory
+cmd mkdir %{{
+	printf "dirname: ";
+	read ans;
+	mkdir $ans;
+	printf "created directory: $ans"
+
+}} 
+map A mkdir
+
+### Move marks to the trash
+cmd trash %{{
+	printf "trash-put selection?: (y/n) ";
+	read ans;
+
+	if [ $ans = "y" ] || [ $ans = "Y" ]; then
+		files=$(printf "$fx" | tr '\n' ';')
+		while [ "$files" ]; do
+			file=${files%%;*}
+			trash-put "$(basename "$file")"
+			if [ "$files" = "$file" ]; then
+				files=''
+			else
+				files="${files#*;}"
+			fi
+		done
+		printf "trashed selection"
+	else 
+		printf "trash-put selection cancelled"
+	fi
+}}
+map x trash
+
+#### Opening Files
+# default opener set to system editor
+cmd open $$EDITOR "$f"
+map <enter> open
+
+#### General Settings
+set hidden true
+set mouse true
+
